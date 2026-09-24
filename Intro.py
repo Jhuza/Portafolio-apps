@@ -1,87 +1,43 @@
+import base64
+from html import escape
+from pathlib import Path
 import streamlit as st
-from PIL import Image
-st.title("Aplicaciones de Inteligencia Artificial.")
+from aurora import footer, hero, section, setup
+from projects import PROJECTS
+
+ROOT = Path(__file__).resolve().parent
+setup("Interfaces multimodales", "PORTAFOLIO / IA")
+hero("PORTAFOLIO DE INTERFACES MULTIMODALES", "Distintas entradas.", "Nuevas perspectivas.",
+     "Una colección de aplicaciones de inteligencia artificial para explorar texto, imágenes, documentos y sonido.", kind="vision")
 
 with st.sidebar:
-  st.subheader("Aplicaciones con Inteligencia Artificial.")
-  parrafo = (
-    "La inteligencia artificial permite mejorar la toma de decisiones con el uso de datos, "
-    "automatizar tareas rutinarias y proporcionar análisis avanzados en tiempo real, lo que "
-    "resulta en una mayor eficiencia y precisión en diversos campos."
-  )
-  st.write(parrafo)
-
-url_ia="https://sites.google.com/view/aplicacionesdeia/inicio"
-st.subheader("En el siguiente enlace puedes encontrar páginas y ejercicios prácticos")
-st.write(f"Enlace para páginas y ejercicios: [Enlace]({url_ia})")
-col1, col2, col3 = st.columns(3)
-
-with col1:
- 
- st.subheader("Conversión de texto a voz")
- image = Image.open('txt_to_audio2.png')
- st.image(image, width=190)
- st.write("En la siguiente enlace usaremos una de las aplicaciones de Inteligencia Artificial") 
- url = "https://imultimod.streamlit.app/"
- st.write(f"Texto a voz: [Enlace]({url})")
-
- st.subheader("Reconocimiento de Objetos")
- image = Image.open('txt_to_audio.png')
- st.image(image, width=200)
- st.write("En la siguiente enlace veremos como se detectan objetos en Imágenes.") 
- url = "https://yolov5cmc.streamlit.app/"
- st.write(f"YOLO: [Enlace]({url})")
-
- st.subheader("Entrenando Modelos")
- image = Image.open('OIG5.jpg')
- st.image(image, width=200)
- st.write("En la siguiente enlace veremos como puedes usar tu modelo entrenado.") 
- url = "https://xn3pg24ztuv6fdiqon8qn3.streamlit.app/"
- st.write(f"YOLO: [Enlace]({url})")
-
-with col2: 
- st.subheader("Conversión de voz a texto")
- image = Image.open('OIG8.jpg')
- st.image(image, width=200)
- st.write("En la siguiente veremos una aplicación que usa la conversión de voz a texto.") 
- url = "https://traductorw.streamlit.app/"
- st.write(f"Voz a texto: [Enlace]({url})")
-
- st.subheader("Análisis de Datos")
- image = Image.open('data_analisis.png')
- st.image(image, width=190)
- st.write("En la siguiente enlace veremos como se pueden analizar datos usando agentes.") 
- url = "https://dataagente.streamlit.app/"
- st.write(f"Datos: [Enlace]({url})")
-
- st.subheader("Trasnscriptor Audio y Video")
- image = Image.open('OIG3.jpg')
- st.image(image, width=200)
- st.write("En la siguiente enlace veremos como realizamos transcripciones de audio/video.") 
- url = "https://transcript-whisper.streamlit.app/"
- st.write(f"Transcriptor: [Enlace]({url})")
+    st.subheader("Aplicaciones con inteligencia artificial")
+    st.write("La inteligencia artificial permite mejorar la toma de decisiones con el uso de datos, automatizar tareas rutinarias y proporcionar análisis avanzados en tiempo real, lo que resulta en una mayor eficiencia y precisión en diversos campos.")
+    st.caption("Una colección para explorar distintas formas de interacción entre personas y modelos.")
 
 
-with col3: 
- st.subheader("Generación en Contexto")
- image = Image.open('Chat_pdf.png')
- st.image(image, width=190)
- st.write("En la siguiente veremos una aplicación que usa RAG a partir de un documento (PDF).") 
- url = "https://chatpdf-cc.streamlit.app/"
- st.write(f"RAG: [Enlace]({url})")
-
- st.subheader("Análisis de Imagen")
- image = Image.open('OIG4.jpg')
- st.image(image, width=200)
- st.write("En la siguiente enlace veremos la capacidad de análisis en Imágenes.") 
- url = "https://vision2-gpt4o.streamlit.app/"
- st.write(f"Vision: [Enlace]({url})")
- 
- st.subheader("Sistema Ciberfísico")
- image = Image.open('OIG6.jpg')
- st.image(image, width=200)
- st.write("En la siguiente enlace veremos la capacidad de interacción con el mundo físico.") 
- url = "https://vision2-gpt4o.streamlit.app/"
- st.write(f"Vision: [Enlace]({url})")
+@st.cache_data(show_spinner=False)
+def image_data(filename):
+    """Bundle existing repository art; no external asset request is required."""
+    content = (ROOT / filename).read_bytes()
+    mime = "image/png" if filename.endswith(".png") else "image/jpeg"
+    return f"data:{mime};base64,{base64.b64encode(content).decode('ascii')}"
 
 
+section("01—09", "Explora las experiencias", "Texto / Imagen / Audio / Datos")
+cards = []
+for index, project in enumerate(PROJECTS, start=1):
+    source_link = ""
+    if project.get("repo"):
+        source_link = f'<a href="{escape(project["repo"], quote=True)}" target="_blank" rel="noopener noreferrer" aria-label="Ver código de {escape(project["title"], quote=True)}">Código ↗</a>'
+    cards.append(
+        '<article class="aurora-project">'
+        f'<div class="aurora-cover"><img src="{image_data(project["image"])}" alt="" loading="lazy"><span class="aurora-cover-index">{index:02d}</span></div>'
+        f'<div class="aurora-project-body"><p class="aurora-project-tag">{escape(project["category"])}</p>'
+        f'<h3>{escape(project["title"])}</h3><p class="aurora-project-description">{escape(project["description"])}</p>'
+        f'<div class="aurora-project-links"><a href="{escape(project["url"], quote=True)}" target="_blank" rel="noopener noreferrer" aria-label="Abrir {escape(project["title"], quote=True)}">Explorar aplicación ↗</a>{source_link}</div></div></article>'
+    )
+st.markdown('<div class="aurora-project-grid">' + "".join(cards) + '</div>', unsafe_allow_html=True)
+
+st.markdown('<aside class="aurora-resource"><div><h3>Seguir explorando</h3><p>Páginas y ejercicios prácticos sobre aplicaciones de inteligencia artificial.</p></div><a href="https://sites.google.com/view/aplicacionesdeia/inicio" target="_blank" rel="noopener noreferrer">Ver recursos ↗</a></aside>', unsafe_allow_html=True)
+footer("APRENDER / EXPLORAR / CONSTRUIR")
