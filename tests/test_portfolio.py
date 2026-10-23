@@ -1,6 +1,11 @@
 from html.parser import HTMLParser
 from pathlib import Path
+import sys
 from streamlit.testing.v1 import AppTest
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from projects import PROJECTS, TARGET_COUNT
 
 
 class Links(HTMLParser):
@@ -11,28 +16,38 @@ class Links(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         values = dict(attrs)
-        if tag == "a":
-            self.links.append(values.get("href"))
-        if tag == "article":
-            self.cards += 1
+        if tag == "a": self.links.append(values.get("href"))
+        if tag == "article": self.cards += 1
 
 
-def test_nine_projects_resources_and_current_app_links():
-    app = AppTest.from_file(str(Path(__file__).resolve().parents[1] / "Intro.py")).run(timeout=30)
+def parsed(app):
     assert not app.exception
-    html = "\n".join(item.value for item in app.markdown)
     parser = Links()
-    parser.feed(html)
-    assert parser.cards == 9
-    expected = {
-        "https://chatpdf-fgtvnhpsz5z4sanjbpjpcu.streamlit.app/",
-        "https://visionapp-bacpk6abduty44a9am9lc2.streamlit.app/",
-        "https://imultimod.streamlit.app/", "https://traductorw.streamlit.app/",
-        "https://yolov5cmc.streamlit.app/", "https://dataagente.streamlit.app/",
-        "https://xn3pg24ztuv6fdiqon8qn3.streamlit.app/",
-        "https://transcript-whisper.streamlit.app/", "https://vision2-gpt4o.streamlit.app/",
-        "https://sites.google.com/view/aplicacionesdeia/inicio",
-        "https://github.com/Jhuza/chat_pdf", "https://github.com/Jhuza/vision_app",
-    }
-    assert expected.issubset(set(parser.links))
-    assert "chatpdf-cc.streamlit.app" not in html
+    parser.feed("\n".join(item.value for item in app.markdown))
+    return parser
+
+
+def test_own_apps_and_code_links_without_inventing_missing_projects():
+    app = AppTest.from_file(str(ROOT / "Intro.py")).run(timeout=30)
+    page = parsed(app)
+    assert len(PROJECTS) == len({p['url'] for p in PROJECTS}) == 14
+    assert page.cards == len(PROJECTS)
+    assert TARGET_COUNT == 18
+    assert all(p['url'] in page.links and p['repo'] in page.links for p in PROJECTS)
+    assert all(p['repo'].startswith('https://github.com/Jhuza/') for p in PROJECTS)
+    assert not any(url in page.links for url in ('https://imultimod.streamlit.app/', 'https://yolov5cmc.streamlit.app/'))
+
+
+def test_filters_search_empty_state_and_project_detail():
+    app = AppTest.from_file(str(ROOT / "Intro.py")).run(timeout=30)
+    app.selectbox[0].select('IoT').run()
+    assert parsed(app).cards == 3
+    app.selectbox[0].select('Todas').run()
+    app.text_input[0].set_value('OCR').run()
+    assert parsed(app).cards == 2
+    app.text_input[0].set_value('sin coincidencias 123').run()
+    assert parsed(app).cards == 0
+    assert any('No hay coincidencias' in info.value for info in app.info)
+    app.selectbox[1].select('Monitor de sensores').run()
+    assert not app.exception
+    assert any('cinco segundos' in info.value for info in app.info)
