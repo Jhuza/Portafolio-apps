@@ -1,6 +1,8 @@
 # Portafolio de Interfaces Multimodales
 
-Colección académica de Juan José Hoyos (Jhuza), a partir de los ejercicios de clase del profesor Carlos Mario Correa. Reúne 14 despliegues propios; el objetivo es incorporar las 18 experiencias. Los cuatro espacios restantes no se presentan como apps terminadas.
+Colección académica de Juan José Hoyos (Jhuza), a partir de los ejercicios del profesor Carlos Mario Correa. Reúne **18 experiencias: 17 apps independientes y un tablero propio integrado**.
+
+[Abrir portafolio](https://jhginterfacesmultimodalesportfolio.streamlit.app/)
 
 ## Ejecutar
 
@@ -9,13 +11,17 @@ python -m pip install -r requirements.txt
 python -m streamlit run Intro.py
 ```
 
-La entrada de Streamlit Cloud sigue siendo `Intro.py`. `projects.json` contiene las fichas, enlaces propios y metadatos. `projects.py` carga el catálogo y su objetivo. El número de apps se calcula desde los registros reales.
+La entrada de Streamlit Cloud es `Intro.py`. `projects.json` contiene las fichas, enlaces y metadatos. `pages/18_Tablero.py` implementa el tablero con pincel, figuras, colores, grosores, formatos y exportación PNG/JSON.
 
-## Incorporar una app
+## Evidencia y atribución
 
-Después de crear el fork y desplegarlo, agregar su ficha a `projects.json`: título, modalidad, propósito, entrada, salida, pasos, tecnología, límites, URL de la demo y repositorio de Jhuza. Reutilizar una portada del repositorio o añadir una ilustración propia. Las ilustraciones no son evidencias de ejecución. No incluir claves de API ni resultados inventados.
+Cada ficha incluye propósito, entrada, salida, uso, tecnología, límites, demo y código. Las portadas son ilustraciones; no se presentan como capturas de resultados. La disponibilidad de APIs, modelos y dispositivos se verifica dentro de cada app.
 
-Copiar el tema y los componentes Aurora al nuevo repo, añadir `app_info.json` y llamar a `app_header()` al iniciar su interfaz. Conservar sus dependencias y su lógica; revisar su versión de Python antes de desplegar.
+El conteo de 18 corresponde a esta colección. Consulta la [comparación con el material de clase](docs/COBERTURA.md) para distinguirla de otros ejemplos enlazados por el profesor.
+
+## Mantener la colección
+
+Para incorporar otra app, añadir su ficha y enlaces propios a `projects.json`. Copiar `aurora.py`, `aurora.css`, `app_info.json` y el tema de `.streamlit/config.toml`; llamar a `app_header()` al iniciar. Revisar compatibilidad de dependencias antes de desplegar. No incluir claves ni resultados inventados.
 
 ## Verificación
 
@@ -24,4 +30,6 @@ python -m pip install -r requirements-dev.txt
 python -m pytest tests -q
 ```
 
-Las pruebas verifican el catálogo, enlaces propios, filtros, búsquedas y selección de fichas. No certifican disponibilidad de modelos o dispositivos externos. Consulta [la guía visual](docs/guia-visual-aurora.md) y [AURORA.md](AURORA.md).
+Las pruebas verifican catálogo, enlaces propios, filtros, búsqueda, selección de fichas y controles/exportaciones del tablero con un lienzo simulado. Las interacciones reales del lienzo se revisan en el navegador.
+
+[Guía visual](docs/guia-visual-aurora.md) · [Componentes Aurora](AURORA.md)

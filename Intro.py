@@ -11,7 +11,7 @@ hero("PORTAFOLIO DE INTERFACES MULTIMODALES", "Distintas entradas.", "Nuevas per
      "Texto, imágenes, voz y dispositivos. Una colección de experiencias para explorar cómo nos comunicamos con la tecnología.", kind="vision")
 st.markdown('<p class="aurora-author">Juan José Hoyos · JHUZA / LAB · Interfaces multimodales</p>', unsafe_allow_html=True)
 pending = max(TARGET_COUNT - len(PROJECTS), 0)
-st.markdown(f'<div class="aurora-summary"><span><strong>{len(PROJECTS):02d}</strong> aplicaciones enlazadas</span><span><strong>{TARGET_COUNT:02d}</strong> objetivo de la colección</span><span><strong>{pending:02d}</strong> por incorporar</span></div>', unsafe_allow_html=True)
+st.markdown(f'<div class="aurora-summary"><span><strong>{len(PROJECTS):02d}</strong> experiencias multimodales</span><span><strong>17</strong> apps independientes</span><span><strong>01</strong> tablero integrado</span></div>', unsafe_allow_html=True)
 
 with st.sidebar:
     st.subheader("Sobre la colección")
@@ -19,7 +19,7 @@ with st.sidebar:
     st.caption("Ejercicios y repositorios base compartidos por el profesor Carlos Mario Correa. Personalización e integración visual: Jhuza.")
     st.markdown("[Material de la clase ↗](https://sites.google.com/view/interfacesmultimodales/p%C3%A1gina-principal)")
     st.markdown("[Guía visual Aurora ↗](https://github.com/Jhuza/Portafolio-apps/blob/main/docs/guia-visual-aurora.md)")
-    st.caption("Los enlaces corresponden a mis despliegues. La disponibilidad de modelos, APIs, cámara y dispositivos se comprueba dentro de cada app.")
+    st.caption("17 despliegues propios y un tablero integrado en este portafolio. La disponibilidad de modelos, APIs, cámara y dispositivos se comprueba dentro de cada app.")
 
 
 @st.cache_data(show_spinner=False)

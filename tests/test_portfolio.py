@@ -27,12 +27,13 @@ def parsed(app):
     return parser
 
 
-def test_own_apps_and_code_links_without_inventing_missing_projects():
+def test_own_apps_and_code_links_include_the_integrated_board():
     app = AppTest.from_file(str(ROOT / "Intro.py")).run(timeout=30)
     page = parsed(app)
-    assert len(PROJECTS) == len({p['url'] for p in PROJECTS}) == 14
+    assert len(PROJECTS) == len({p['url'] for p in PROJECTS}) == 18
     assert page.cards == len(PROJECTS)
     assert TARGET_COUNT == 18
+    assert sum(p['slug']=='tablero' for p in PROJECTS) == 1
     assert all(p['url'] in page.links and p['repo'] in page.links for p in PROJECTS)
     assert all(p['repo'].startswith('https://github.com/Jhuza/') for p in PROJECTS)
     assert not any(url in page.links for url in ('https://imultimod.streamlit.app/', 'https://yolov5cmc.streamlit.app/'))
