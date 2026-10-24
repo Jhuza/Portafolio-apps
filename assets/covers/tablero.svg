@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 340" role="img" aria-label="Tablero propio">
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#07101e"/><stop offset="1" stop-color="#05080f"/></linearGradient>
+<radialGradient id="blue"><stop stop-color="#246fcb" stop-opacity=".43"/><stop offset="1" stop-color="#246fcb" stop-opacity="0"/></radialGradient>
+<radialGradient id="warm"><stop stop-color="#e37d46" stop-opacity=".28"/><stop offset="1" stop-color="#e37d46" stop-opacity="0"/></radialGradient>
+<linearGradient id="glass" x2=".9" y2="1"><stop stop-color="#346197" stop-opacity=".42"/><stop offset=".5" stop-color="#102239" stop-opacity=".7"/><stop offset="1" stop-color="#101725" stop-opacity=".9"/></linearGradient>
+<linearGradient id="edge" x2=".7" y2="1"><stop stop-color="#9ed4ff" stop-opacity=".85"/><stop offset=".5" stop-color="#6390c7" stop-opacity=".25"/><stop offset="1" stop-color="#e79e70" stop-opacity=".5"/></linearGradient>
+<linearGradient id="light" x2="1" y2=".7"><stop stop-color="#C1EDFF"/><stop offset=".5" stop-color="#6CAEFF"/><stop offset="1" stop-color="#4C7DCD"/></linearGradient></defs>
+<rect width="600" height="340" fill="url(#bg)"/><ellipse cx="390" cy="70" rx="280" ry="250" fill="url(#blue)"/><ellipse cx="530" cy="310" rx="250" ry="190" fill="url(#warm)"/>
+<g fill="none" stroke="#7EA8D1" stroke-opacity=".08"><ellipse cx="300" cy="275" rx="232" ry="44"/><ellipse cx="300" cy="275" rx="185" ry="27"/></g>
+<rect x="160" y="72" width="280" height="190" rx="20" fill="url(#glass)" stroke="url(#edge)" stroke-width="1.4"/><path d="M191 222l50-78 49 68 62-94 57 103" stroke="url(#light)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M192 111q46 55 73 9" stroke="#FFAA76" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="397" cy="107" r="13" fill="url(#glass)" stroke="url(#edge)" stroke-width="1.5"/><rect x="213" y="250" width="178" height="38" rx="12" fill="url(#glass)" stroke="url(#edge)" stroke-width="1.4"/><circle cx="236" cy="269" r="7" fill="#74C8FF" stroke="url(#edge)" stroke-width="1.5"/><circle cx="268" cy="269" r="7" fill="#4875F6" stroke="url(#edge)" stroke-width="1.5"/><circle cx="300" cy="269" r="7" fill="#FFA66F" stroke="url(#edge)" stroke-width="1.5"/><circle cx="332" cy="269" r="7" fill="#B1C2DA" stroke="url(#edge)" stroke-width="1.5"/>
+<circle cx="498" cy="91" r="2" fill="#8FCDFF" opacity=".6"/><circle cx="119" cy="193" r="2" fill="#FFA16B" opacity=".7"/>
+</svg>
