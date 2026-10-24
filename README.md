@@ -4,6 +4,8 @@ Colección académica de Juan José Hoyos (Jhuza), a partir de los ejercicios de
 
 [Abrir portafolio](https://jhginterfacesmultimodalesportfolio.streamlit.app/)
 
+Identidad JHG con logo propio, 18 portadas vectoriales, botones azules y navegación compacta. El catálogo permite filtrar, buscar sin tildes, ordenar y limpiar la selección. Consulta [las decisiones de diseño](docs/DISENO-JHG.md).
+
 ## Ejecutar
 
 ```sh

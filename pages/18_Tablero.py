@@ -5,11 +5,12 @@ import numpy as np
 from PIL import Image
 import streamlit as st
 from streamlit_drawable_canvas import st_canvas
-from aurora import setup, hero, project_context, section, footer
+from aurora import hero, project_context, section
+from portfolio_ui import setup_portfolio, portfolio_footer
 
 ROOT=Path(__file__).resolve().parents[1]
 project=json.loads((ROOT/'tablero_info.json').read_text(encoding='utf-8'))
-setup("Tablero propio","DIBUJO / INTERACCIÓN")
+setup_portfolio("Tablero propio",sidebar="expanded",home=False)
 hero(project['title'],project['headline'],project['accent'],project['description'],kind='vision')
 project_context(project)
 with st.sidebar:
@@ -41,4 +42,4 @@ with right:
         st.caption(f"{len(canvas.json_data['objects'])} objetos en el tablero · 320 × {height} px")
     else:
         st.info('Dibuja para habilitar la vista previa y las descargas.')
-footer('EXPLORAR / DIBUJAR / CREAR')
+portfolio_footer(home=False)

@@ -41,14 +41,22 @@ def test_own_apps_and_code_links_include_the_integrated_board():
 
 def test_filters_search_empty_state_and_project_detail():
     app = AppTest.from_file(str(ROOT / "Intro.py")).run(timeout=30)
-    app.selectbox[0].select('IoT').run()
+    app.selectbox(key='modality').select('IoT').run()
     assert parsed(app).cards == 3
-    app.selectbox[0].select('Todas').run()
+    app.selectbox(key='modality').select('Todas').run()
     app.text_input[0].set_value('OCR').run()
     assert parsed(app).cards == 2
     app.text_input[0].set_value('sin coincidencias 123').run()
     assert parsed(app).cards == 0
     assert any('No hay coincidencias' in info.value for info in app.info)
-    app.selectbox[1].select('Monitor de sensores').run()
+    app.button[0].click().run()
+    assert parsed(app).cards == 18
+    app.text_input[0].set_value('digitos').run()
+    assert parsed(app).cards == 1
+    app.button[0].click().run()
+    app.selectbox(key='sort').select('Nombre A–Z').run()
+    html='\n'.join(item.value for item in app.markdown)
+    assert html.index('aria-label="Abrir Análisis') < html.index('aria-label="Abrir ChatPDF')
+    app.selectbox(key='detail').select('Monitor de sensores').run()
     assert not app.exception
     assert any('cinco segundos' in info.value for info in app.info)

@@ -1,0 +1,56 @@
+/* JHG portfolio: blue calls to action and a compact editorial identity. */
+html { scroll-behavior:smooth; }
+#inicio,#experiencias,#fichas { scroll-margin-top:85px; }
+.jhg-header { display:flex; justify-content:space-between; align-items:center; gap:24px; border-bottom:1px solid var(--aurora-line); padding:0 0 22px; }
+.jhg-identity { display:flex; align-items:center; gap:14px; color:#f4f6fa!important; text-decoration:none!important; font-size:11px; letter-spacing:.14em; }
+.jhg-logo { width:64px; height:64px; object-fit:contain; mix-blend-mode:screen; }
+.jhg-identity small { display:block; color:#8f9fb7; font-size:9px; letter-spacing:.14em; margin-top:7px; }
+.jhg-header nav { display:flex; align-items:center; flex-wrap:wrap; gap:12px 26px; }
+.jhg-header nav a { display:inline-flex; align-items:center; gap:7px; min-height:44px; color:#bdcbe0!important; font-size:12px; text-decoration:none; }
+.jhg-header nav a:hover { color:#fff!important; }
+.jhg-icon { display:inline-block; width:19px; height:19px; flex:0 0 19px; vertical-align:middle; object-fit:contain; }
+.jhg-header nav a .jhg-icon:last-child:not(:first-child) { width:14px; height:14px; flex-basis:14px; }
+.aurora-hero { padding-top:58px; padding-bottom:32px; }
+.aurora-author { display:none; }
+.aurora-summary { border-bottom:1px solid var(--aurora-line); padding-bottom:30px; margin-bottom:35px; font-size:12px; gap:24px 40px; }
+.aurora-summary strong { font-size:25px; font-variant-numeric:tabular-nums; }
+.jhg-section { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin:8px 0 20px; }
+.jhg-section>div { display:flex; align-items:center; gap:12px; }
+.jhg-section h2 { font-size:24px; font-weight:500; letter-spacing:-.035em; margin:0; padding:0; }
+.jhg-section p { margin:0; font-size:12px; color:#92a5c1; }
+.jhg-number { font-size:10px; letter-spacing:.12em; color:var(--aurora-orange); margin-right:2px; }
+.jhg-filter-label { color:#a9b5c7; font-size:11px; letter-spacing:.08em; margin:0 0 8px; display:flex; gap:8px; align-items:center; }
+.jhg-filter-label .jhg-icon { width:16px; height:16px; flex-basis:16px; }
+.jhg-result-count { color:#98aac3; font-size:12px; margin:6px 0 20px; }
+.aurora-project-grid { gap:24px; align-items:stretch; margin-bottom:44px; }
+.aurora-project { display:flex; flex-direction:column; border-radius:22px; background:linear-gradient(160deg,#101b2d,#0b1019 65%); }
+.aurora-cover { height:auto; aspect-ratio:1.75; background:#080e19; }
+.aurora-cover img { opacity:1; object-fit:cover; transition:transform 280ms ease; }
+.aurora-cover::after { background:linear-gradient(180deg,transparent 68%,#101923); pointer-events:none; }
+.aurora-project:hover .aurora-cover img { transform:scale(1.035); }
+.aurora-cover-index { top:14px; left:16px; padding:4px 7px; border-color:#8caed833; font-size:10px; color:#c5d7f2; }
+.aurora-project-body { padding:15px 22px 22px; display:flex; flex:1; flex-direction:column; }
+.aurora-project-tag { display:flex; align-items:center; gap:6px; font-size:10px; letter-spacing:.15em; margin-bottom:13px; }
+.aurora-project-tag .jhg-icon { width:14px; height:14px; flex-basis:14px; }
+.aurora-project h3 { display:flex; align-items:flex-start; gap:9px; font-size:20px; line-height:1.25; min-height:50px; margin-bottom:10px; }
+.aurora-project h3 .jhg-icon { margin-top:3px; margin-right:8px; opacity:.8; }
+.aurora-project-description { font-size:13px; line-height:1.7; min-height:0; flex:1; margin:0 0 18px; }
+.aurora-project-flow { font-size:10px; letter-spacing:.025em; color:#8fa6c7; border:0; padding:0; margin:0 0 20px; }
+.aurora-project-links { border:0; padding:0; gap:10px; flex-wrap:nowrap; }
+.aurora-project-links a { gap:6px; font-size:12px; white-space:nowrap; }
+.aurora-project-links a.jhg-open { flex:1; justify-content:center; color:#fff!important; background:linear-gradient(120deg,#205dde,#194bbf); border:1px solid #6a9dff5c; border-radius:11px; min-height:44px; padding:0 10px; font-weight:600; box-shadow:inset 0 1px #ffffff1a,0 5px 20px #1558d724; text-decoration:none; transition:background 180ms,box-shadow 180ms; }
+.aurora-project-links a.jhg-open:hover { background:#276cf0; box-shadow:0 4px 22px #357cff3b; }
+.aurora-project-links a.jhg-code { color:#a9b5c7!important; padding:0 3px; }
+.aurora-project-links .jhg-icon { width:15px; height:15px; flex-basis:15px; }
+.jhg-footer { display:grid; grid-template-columns:1.15fr 1fr 1.2fr; gap:32px; border-top:1px solid var(--aurora-line); margin-top:45px; padding:32px 0 8px; }
+.jhg-footer-brand { color:#fff!important; text-decoration:none; font-size:18px; font-weight:650; letter-spacing:.14em; }
+.jhg-footer-brand span { color:#ffad7e; font-weight:400; }
+.jhg-footer p { color:#91a0b7; font-size:11px; line-height:1.85; margin:12px 0; }
+.jhg-footer nav { display:flex; flex-direction:column; align-items:flex-start; }
+.jhg-footer-label { color:#c6d3e5; font-size:9px; letter-spacing:.15em; margin-bottom:8px; display:block; }
+.jhg-footer a:not(.jhg-footer-brand) { color:#9fb9dc!important; font-size:11px; display:inline-flex; align-items:center; gap:6px; min-height:32px; text-decoration:none; }
+.jhg-footer a:hover { text-decoration:underline; }
+.jhg-footer .jhg-icon { width:13px; height:13px; flex-basis:13px; }
+@media(max-width:900px) { .jhg-header { align-items:flex-start; }.jhg-header nav { gap:6px 16px; justify-content:flex-end; }.jhg-identity span { max-width:135px; }.jhg-footer { grid-template-columns:1fr 1fr; }.jhg-footer-note { grid-column:1/-1; } }
+@media(max-width:640px) { .jhg-header { flex-direction:column; gap:14px; padding-bottom:16px; }.jhg-identity span { max-width:none; }.jhg-logo { width:52px; height:52px; }.jhg-header nav { width:100%; justify-content:space-between; gap:4px; }.jhg-header nav a { font-size:10px; gap:5px; }.jhg-header nav .jhg-icon { width:15px; height:15px; flex-basis:15px; }.aurora-hero { padding-top:32px; }.aurora-summary { gap:16px 22px; font-size:10px; margin-bottom:24px; }.aurora-summary strong { font-size:21px; }.jhg-section h2 { font-size:20px; }.jhg-section p { font-size:11px; }.aurora-project h3 { min-height:0; }.aurora-project-links a { font-size:12px; }.jhg-footer { gap:24px 18px; }.jhg-footer p { font-size:11px; } }
+@media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; }.aurora-cover img,.aurora-project-links a.jhg-open { transition:none; }.aurora-project:hover .aurora-cover img { transform:none; } }

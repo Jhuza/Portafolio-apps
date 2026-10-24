@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 340" role="img" aria-label="Hábitat inteligente">
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#07101e"/><stop offset="1" stop-color="#05080f"/></linearGradient>
+<radialGradient id="blue"><stop stop-color="#246fcb" stop-opacity=".43"/><stop offset="1" stop-color="#246fcb" stop-opacity="0"/></radialGradient>
+<radialGradient id="warm"><stop stop-color="#e37d46" stop-opacity=".28"/><stop offset="1" stop-color="#e37d46" stop-opacity="0"/></radialGradient>
+<linearGradient id="glass" x2=".9" y2="1"><stop stop-color="#346197" stop-opacity=".42"/><stop offset=".5" stop-color="#102239" stop-opacity=".7"/><stop offset="1" stop-color="#101725" stop-opacity=".9"/></linearGradient>
+<linearGradient id="edge" x2=".7" y2="1"><stop stop-color="#9ed4ff" stop-opacity=".85"/><stop offset=".5" stop-color="#6390c7" stop-opacity=".25"/><stop offset="1" stop-color="#e79e70" stop-opacity=".5"/></linearGradient>
+<linearGradient id="light" x2="1" y2=".7"><stop stop-color="#C1EDFF"/><stop offset=".5" stop-color="#6CAEFF"/><stop offset="1" stop-color="#4C7DCD"/></linearGradient></defs>
+<rect width="600" height="340" fill="url(#bg)"/><ellipse cx="390" cy="70" rx="280" ry="250" fill="url(#blue)"/><ellipse cx="300" cy="310" rx="250" ry="190" fill="url(#warm)"/>
+<g fill="none" stroke="#7EA8D1" stroke-opacity=".08"><ellipse cx="300" cy="275" rx="232" ry="44"/><ellipse cx="300" cy="275" rx="185" ry="27"/></g>
+<circle cx="298" cy="171" r="94" fill="url(#glass)" stroke="url(#edge)" stroke-width="1.5"/><path d="M267 230l-31-49q-11-24 5-25l25 22V99q0-15 14-15t14 15v50-68q0-15 13-15t13 15v68-57q0-15 13-15t13 15v67-41q0-15 13-15t13 15v70q0 52-47 66h-34z" stroke="url(#light)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M165 121v-28h28 M418 121V93h-28 M165 235v28h28 M418 235v28h-28" stroke="#FFAB75" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="498" cy="91" r="2" fill="#8FCDFF" opacity=".6"/><circle cx="119" cy="193" r="2" fill="#FFA16B" opacity=".7"/>
+</svg>
