@@ -14,7 +14,7 @@ hero(project['title'],project['headline'],project['accent'],project['description
 project_context(project)
 with st.sidebar:
     st.subheader("Configura tu tablero")
-    mode=st.selectbox("Herramienta",['Pincel','Línea','Rectángulo','Círculo','Mover objetos'])
+    mode=st.selectbox("Herramienta",['Pincel','Línea','Rectángulo','Círculo'])
     stroke_width=st.slider("Grosor del trazo",1,30,5)
     stroke_color=st.color_picker("Color del trazo",'#4C8DFF')
     bg_color=st.color_picker("Color del fondo",'#0D1420')
@@ -24,12 +24,12 @@ with st.sidebar:
     st.caption("Cambiar el formato o el fondo inicia un tablero nuevo. Descarga primero el dibujo que quieras conservar.")
 
 height={'Cuadrado':320,'Vertical':400,'Horizontal':240}[shape]
-mode_value={'Pincel':'freedraw','Línea':'line','Rectángulo':'rect','Círculo':'circle','Mover objetos':'transform'}[mode]
+mode_value={'Pincel':'freedraw','Línea':'line','Rectángulo':'rect','Círculo':'circle'}[mode]
 left,right=st.columns([1,1],gap='large')
 with left:
     section('01','Dibuja','Ratón o pantalla táctil')
-    st.caption("La barra inferior permite deshacer, rehacer y limpiar el tablero.")
-    canvas=st_canvas(fill_color=fill_color,stroke_width=stroke_width,stroke_color=stroke_color,background_color=bg_color,width=320,height=height,drawing_mode=mode_value,display_toolbar=True,key=f'own_canvas_{shape}_{bg_color}')
+    st.caption("La barra del lienzo permite mover objetos, deshacer, rehacer y limpiar. Aparece al pasar sobre el tablero.")
+    canvas=st_canvas(fill_color=fill_color,stroke_width=stroke_width,stroke_color=stroke_color,background_color=bg_color,width=320,height=height,drawing_mode=mode_value,return_image_data=True,key=f'own_canvas_{shape}_{bg_color}')
 with right:
     section('02','Guarda tu creación','PNG / JSON')
     if canvas.image_data is not None and canvas.json_data and canvas.json_data.get('objects'):
