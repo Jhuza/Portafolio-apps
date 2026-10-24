@@ -1,0 +1,18 @@
+{
+  "slug": "tablero",
+  "entry": "pages/18_Tablero.py",
+  "title": "Tablero propio",
+  "category": "Dibujo",
+  "headline": "Un espacio en blanco.",
+  "accent": "Tu próxima idea.",
+  "description": "Explora una interfaz táctil de dibujo con herramientas, colores y exportación.",
+  "input": "Trazos con ratón o pantalla táctil; herramienta, color, grosor y formato.",
+  "output": "Dibujo descargable como PNG y trazos exportables en JSON.",
+  "steps": "Configura el tablero en el panel lateral, dibuja y descarga el resultado. Usa las herramientas para deshacer, rehacer o limpiar.",
+  "technology": "Streamlit · Canvas · Pillow",
+  "limits": "Esta experiencia explora la entrada táctil y la creación gráfica; no utiliza un modelo de IA. Los dibujos se mantienen durante la sesión.",
+  "url": "https://jhginterfacesmultimodalesportfolio.streamlit.app/Tablero",
+  "repo": "https://github.com/Jhuza/Portafolio-apps/blob/main/pages/18_Tablero.py",
+  "image": "OIG5.jpg",
+  "kind": "vision"
+}
