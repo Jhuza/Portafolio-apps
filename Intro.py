@@ -55,7 +55,7 @@ cards=[]
 for index,p in filtered:
     symbol=CATEGORY_ICONS.get(p['category'],'spark')
     cards.append('<article class="aurora-project">'
-        f'<div class="aurora-cover"><img src="{image_data(p["image"])}" alt="" loading="lazy"><span class="aurora-cover-index">{index:02d}</span></div>'
+        f'<div class="aurora-cover"><img src="{image_data(p["image"])}" alt="" loading="lazy" decoding="async" width="1659" height="948"><span class="aurora-cover-index">{index:02d}</span></div>'
         f'<div class="aurora-project-body"><p class="aurora-project-tag">{escape(p["category"])}</p>'
         f'<h3>{icon(symbol)}<span>{escape(p["title"])}</span></h3><p class="aurora-project-description">{escape(p["description"])}</p>'
         f'<p class="aurora-project-flow">{escape(p["technology"])}</p>'
