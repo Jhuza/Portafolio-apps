@@ -27,6 +27,8 @@ CATEGORY_ICONS = {'Documentos':'file','Imagen':'image','Visión':'image','Texto'
 
 def image_data(filename):
     path=ROOT/filename
+    if filename.startswith('static/'):
+        return 'app/'+filename
     mime={'.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg'}[path.suffix.lower()]
     return f'data:{mime};base64,'+base64.b64encode(path.read_bytes()).decode('ascii')
 
@@ -42,7 +44,7 @@ def setup_portfolio(title='Interfaces multimodales', sidebar='collapsed', home=T
     css=(ROOT/'aurora.css').read_text(encoding='utf-8')+'\n'+(ROOT/'portfolio.css').read_text(encoding='utf-8')
     st.markdown(f'<style>{css}</style>',unsafe_allow_html=True)
     base='' if home else SITE
-    st.markdown(f'<header class="jhg-header" id="inicio"><a class="jhg-identity" href="{base}#inicio" target="_self" aria-label="JHG · Inicio"><img class="jhg-logo" src="{image_data("assets/LogoJHGwhite.png")}" alt="JHG"><span>JUAN JOSÉ HOYOS<small>INTERFACES MULTIMODALES</small></span></a><nav aria-label="Navegación del portafolio"><a href="{base}#experiencias" target="_self">{icon("grid")}Experiencias</a><a href="{base}#fichas" target="_self">{icon("file")}Fichas</a><a href="{COURSE}" target="_blank" rel="noopener noreferrer">{icon("book")}Aprendizaje {icon("arrow")}</a></nav></header>',unsafe_allow_html=True)
+    st.markdown(f'<div class="jhg-header-slot" id="inicio"><header class="jhg-header"><a class="jhg-identity" href="{base}#inicio" target="_self" aria-label="JHG · Inicio"><img class="jhg-logo" src="{image_data("assets/LogoJHGwhite.png")}" alt="JHG"><span>JUAN JOSÉ HOYOS<small>INTERFACES MULTIMODALES</small></span></a><nav aria-label="Navegación del portafolio"><a href="{base}#experiencias" target="_self">{icon("grid")}Experiencias</a><a href="{base}#fichas" target="_self">{icon("file")}Fichas</a><a href="{COURSE}" target="_blank" rel="noopener noreferrer">{icon("book")}Aprendizaje {icon("arrow")}</a></nav></header></div>',unsafe_allow_html=True)
 
 
 def heading(anchor, number, title, symbol, note=''):
@@ -52,3 +54,6 @@ def heading(anchor, number, title, symbol, note=''):
 def portfolio_footer(home=True):
     base='' if home else SITE
     st.markdown(f'<footer class="jhg-footer"><div><a class="jhg-footer-brand" href="{base}#inicio" target="_self">JHG <span>/ LAB</span></a><p>Aprender, explorar y construir.<br>Juan José Hoyos · Interfaces Multimodales</p></div><nav aria-label="Índice del portafolio"><span class="jhg-footer-label">ÍNDICE</span><a href="{base}#experiencias" target="_self">Experiencias</a><a href="{base}#fichas" target="_self">Fichas de las apps</a><a href="{COURSE}" target="_blank" rel="noopener noreferrer">Proceso de aprendizaje {icon("arrow")}</a><a href="{CODE}" target="_blank" rel="noopener noreferrer">Código del portafolio {icon("code")}</a></nav><div class="jhg-footer-note"><span class="jhg-footer-label">ACERCA DE LA COLECCIÓN</span><p>Ejercicios de la clase de Carlos Mario Correa.<br>Diseño y adaptación: Juan José Hoyos.</p><a href="{base}#inicio" target="_self">Volver al inicio ↑</a></div></footer>',unsafe_allow_html=True)
+    # Only trusted, repository-owned code is executed. No user input is interpolated.
+    with st.container(key='portfolio_motion'):
+        st.html('<script>'+(ROOT/'portfolio_motion.js').read_text(encoding='utf-8')+'</script>',unsafe_allow_javascript=True)
