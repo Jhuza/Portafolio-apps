@@ -51,9 +51,20 @@ def heading(anchor, number, title, symbol, note=''):
     st.markdown(f'<section class="jhg-section" id="{anchor}"><div><span class="jhg-number">{number}</span>{icon(symbol)}<h2>{escape(title)}</h2></div><p>{escape(note)}</p></section>',unsafe_allow_html=True)
 
 
+def video_hero():
+    # Native media serving provides the correct MIME type and byte-range support.
+    with st.container(key='jhg_video_hero'):
+        st.video(str(ROOT/'assets/hero/jhg-unlock.mp4'), format='video/mp4',
+                 autoplay=False, muted=True, loop=False)
+    st.markdown('<div class="jhg-hero-intro"><div><h1>Interfaces multimodales</h1>'
+                '<p>Texto, imágenes, voz y dispositivos. Un recorrido de aprendizaje a través de 18 experiencias.</p>'
+                '</div><a href="#experiencias" target="_self">Explora la colección ↓</a></div>', unsafe_allow_html=True)
+
+
 def portfolio_footer(home=True):
     base='' if home else SITE
     st.markdown(f'<footer class="jhg-footer"><div><a class="jhg-footer-brand" href="{base}#inicio" target="_self">JHG <span>/ LAB</span></a><p>Aprender, explorar y construir.<br>Juan José Hoyos · Interfaces Multimodales</p></div><nav aria-label="Índice del portafolio"><span class="jhg-footer-label">ÍNDICE</span><a href="{base}#experiencias" target="_self">Experiencias</a><a href="{base}#fichas" target="_self">Fichas de las apps</a><a href="{COURSE}" target="_blank" rel="noopener noreferrer">Proceso de aprendizaje {icon("arrow")}</a><a href="{CODE}" target="_blank" rel="noopener noreferrer">Código del portafolio {icon("code")}</a></nav><div class="jhg-footer-note"><span class="jhg-footer-label">ACERCA DE LA COLECCIÓN</span><p>Ejercicios de la clase de Carlos Mario Correa.<br>Diseño y adaptación: Juan José Hoyos.</p><a href="{base}#inicio" target="_self">Volver al inicio ↑</a></div></footer>',unsafe_allow_html=True)
     # Only trusted, repository-owned code is executed. No user input is interpolated.
     with st.container(key='portfolio_motion'):
-        st.html('<script>'+(ROOT/'portfolio_motion.js').read_text(encoding='utf-8')+'</script>',unsafe_allow_javascript=True)
+        scripts = '\n'.join((ROOT/name).read_text(encoding='utf-8') for name in ('portfolio_motion.js', 'hero_video.js'))
+        st.html('<script>'+scripts+'</script>',unsafe_allow_javascript=True)

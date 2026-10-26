@@ -12,7 +12,7 @@
   let naturalHeight = 0;
   let floating = false;
   let lastWidth = 0;
-  const selector = '.aurora-hero-copy > *, .aurora-sculpture, .aurora-summary > span, .jhg-section > *, .aurora-project, .jhg-footer > *, .jhg-result-count, [data-testid="stExpander"], [data-testid="stSelectbox"], [data-testid="stTextInput"]';
+  const selector = '.aurora-hero-copy > *, .jhg-hero-intro > *, .aurora-sculpture, .aurora-summary > span, .jhg-section > *, .aurora-project, .jhg-footer > *, .jhg-result-count, [data-testid="stExpander"], [data-testid="stSelectbox"], [data-testid="stTextInput"]';
 
   function reveal(element) {
     if (seen.has(element)) return;

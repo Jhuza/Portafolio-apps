@@ -1,13 +1,12 @@
 import unicodedata
 from html import escape
 import streamlit as st
-from aurora import hero, project_context
-from portfolio_ui import setup_portfolio, heading, portfolio_footer, icon, image_data, CATEGORY_ICONS, COURSE
+from aurora import project_context
+from portfolio_ui import setup_portfolio, heading, portfolio_footer, video_hero, icon, image_data, CATEGORY_ICONS, COURSE
 from projects import PROJECTS, TARGET_COUNT
 
 setup_portfolio()
-hero('PORTAFOLIO DE INTERFACES MULTIMODALES', 'Distintas entradas.', 'Nuevas perspectivas.',
-     'Texto, imágenes, voz y dispositivos. Un recorrido de aprendizaje a través de interfaces que reconocen, transforman y conectan.', kind='vision')
+video_hero()
 independent=sum(p['slug']!='tablero' for p in PROJECTS)
 st.markdown(f'<div class="aurora-summary"><span><strong>{len(PROJECTS):02d}</strong> experiencias</span><span><strong>{independent:02d}</strong> apps independientes</span><span><strong>{len(PROJECTS)-independent:02d}</strong> tablero integrado</span></div>',unsafe_allow_html=True)
 
