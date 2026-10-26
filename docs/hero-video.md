@@ -4,9 +4,9 @@
 
 El video avanza con el desplazamiento (scroll scrubbing). Una sección sticky conserva el hero visible durante un recorrido de 1,8 alturas de pantalla, con un mínimo de 700 px. El progreso llega al 100 % antes de liberar el hero; se añaden 120 px para contemplar el resultado. No se interceptan la rueda ni los gestos táctiles.
 
-Antes de completar el recorrido, subir retrocede la animación. Después de completarlo se conserva el fotograma final hasta recargar, incluso al filtrar. El botón «Saltar animación» lleva directamente a las experiencias. Con movimiento reducido o fallo del video se muestra la composición final sin recorrido adicional. Sin JavaScript quedan los controles nativos y el flujo normal de la página.
+La posición del scroll determina el fotograma en ambas direcciones, incluso después de completar la apertura. Al volver al hero desde las apps, subir lo cierra progresivamente; al bajar vuelve a abrirse. Los cambios de filtros conservan el fotograma correspondiente a la posición actual. El botón «Saltar animación» lleva directamente a las experiencias. Con movimiento reducido o fallo del video se muestra la composición final sin recorrido adicional. Sin JavaScript quedan los controles nativos y el flujo normal de la página.
 
-Los bordes se mezclan con el fondo mediante máscaras CSS; no se altera el arte original. El encuadre completo conserva texto y tarjetas. La máscara funciona igual en el video y en el fotograma final.
+La sección ocupa todo el ancho disponible y el alto de la pantalla bajo la barra de Streamlit. El header propio se superpone. El encuadre conserva texto y tarjetas sin recortarlos; se centra y amplía dentro de esta sección. Una capa ambiental muy desenfocada rellena el fondo y las máscaras de varios pasos producen un desvanecido más amplio en todos los bordes. No se altera el arte original ni se añade otra descarga de video.
 
 ## Recursos servidos
 
@@ -19,7 +19,7 @@ Los bordes se mezclan con el fondo mediante máscaras CSS; no se altera el arte 
 
 El MP4 usa el servicio nativo de medios de Streamlit con MIME `video/mp4` y respuestas parciales 206. Los WebP usan el servicio estático con MIME `image/webp`. CSS, scripts, iconos y bytes inmutables del hero se reutilizan en el servidor. No se envían portadas ni video en base64.
 
-El scroll se procesa con un único `requestAnimationFrame` pendiente. Solo hay una búsqueda de fotograma en curso; al terminar se aplica el objetivo más reciente. La posición sticky la gestiona CSS. Tras completar la apertura se detiene el cálculo del progreso. El observador del hero ignora cambios de texto y tarjetas mientras su video siga conectado.
+El scroll se procesa con un único `requestAnimationFrame` pendiente. Solo hay una búsqueda de fotograma en curso; al terminar se aplica el objetivo más reciente. La posición sticky la gestiona CSS. Al llegar al final se usa una imagen fija; al volver hacia arriba se retoma el video desde la posición del scroll. El observador del hero ignora cambios de texto y tarjetas mientras su video siga conectado.
 
 ## Verificación
 

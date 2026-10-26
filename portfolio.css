@@ -73,15 +73,18 @@ html { scroll-behavior:smooth; }
   .jhg-header.jhg-is-floating { animation:none; }
 }
 /* A transparent feathered hero, pinned only while its scroll track is active. */
-.st-key-jhg_hero_track { --hero-media-height:calc(100svh - 250px); --hero-top:150px; position:relative; }
+.st-key-jhg_hero_track { --hero-stage-height:calc(100svh - 60px); --hero-top:60px; position:relative; width:var(--hero-width,100%)!important; max-width:none; margin-left:calc((100% - var(--hero-width,100%))/2); margin-top:calc(-1 * var(--hero-overlap,0px)); }
+body:has(.st-key-jhg_hero_track) .jhg-header-slot { position:relative; z-index:10; }
 .st-key-jhg_hero_track[data-scroll-hero="active"] { min-height:var(--hero-track-height); }
 .st-key-jhg_hero_track[data-scroll-hero="active"] > [data-testid="stLayoutWrapper"] { position:sticky; top:var(--hero-top); }
-.st-key-jhg_video_hero { position:relative; isolation:isolate; margin:8px auto 0; max-width:calc(var(--hero-media-height) * 864 / 496); background:transparent; border:0; overflow:visible; }
-.st-key-jhg_video_hero video { display:block; width:100%; aspect-ratio:864/496; max-height:var(--hero-media-height); object-fit:contain; background:transparent; }
-.st-key-jhg_video_hero video,.jhg-video-final { -webkit-mask-image:linear-gradient(to right,transparent,#000 5%,#000 95%,transparent),linear-gradient(to bottom,transparent,#000 8%,#000 88%,transparent); mask-image:linear-gradient(to right,transparent,#000 5%,#000 95%,transparent),linear-gradient(to bottom,transparent,#000 8%,#000 88%,transparent); -webkit-mask-composite:source-in; mask-composite:intersect; }
+.st-key-jhg_video_hero { position:relative; isolation:isolate; width:100%; height:var(--hero-stage-height)!important; min-height:var(--hero-stage-height); margin:0; max-width:none; background:transparent; border:0; overflow:hidden; overflow:clip; justify-content:center; }
+.st-key-jhg_video_hero::before { content:''; position:absolute; z-index:-1; inset:0; background:center/cover no-repeat url('app/static/hero/closed.webp'); filter:blur(36px); opacity:.3; -webkit-mask-image:linear-gradient(transparent,#000 28%,#000 65%,transparent); mask-image:linear-gradient(transparent,#000 28%,#000 65%,transparent); pointer-events:none; }
+.st-key-jhg_video_hero > [data-testid="stElementContainer"] { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:min(100%,calc((var(--hero-stage-height) - 80px) * 864 / 496))!important; height:auto!important; aspect-ratio:864/496; }
+.st-key-jhg_video_hero video { display:block; width:100%; height:100%; max-height:none; object-fit:contain; background:transparent; }
+.st-key-jhg_video_hero video,.jhg-video-final { -webkit-mask-image:linear-gradient(to right,transparent,#0003 3%,#000b 8%,#000 16%,#000 84%,#000b 92%,#0003 97%,transparent),linear-gradient(to bottom,transparent,#0004 5%,#000c 12%,#000 22%,#000 74%,#000b 86%,#0003 96%,transparent); mask-image:linear-gradient(to right,transparent,#0003 3%,#000b 8%,#000 16%,#000 84%,#000b 92%,#0003 97%,transparent),linear-gradient(to bottom,transparent,#0004 5%,#000c 12%,#000 22%,#000 74%,#000b 86%,#0003 96%,transparent); -webkit-mask-composite:source-in; mask-composite:intersect; }
 .jhg-video-final { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; pointer-events:none; z-index:1; }
 .jhg-video-final[hidden] { display:none!important; }
-.jhg-hero-rail { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 18px; padding:0 5%; min-height:48px; color:#9babc1; font-size:11px; }
+.jhg-hero-rail { position:absolute; bottom:12px; left:7%; right:7%; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 18px; padding:0; min-height:44px; color:#b2c3d9; font-size:11px; }
 .jhg-hero-progress { --progress:0; height:2px; flex:1; min-width:40px; max-width:140px; background:#abcfff1f; overflow:hidden; }
 .jhg-hero-progress::after { content:''; display:block; height:100%; background:linear-gradient(90deg,#548fff,#ffb563); transform:scaleX(var(--progress)); transform-origin:left; }
 .jhg-video-control { min-height:44px; padding:8px 0; border:0; background:transparent; color:#bedaff; font-family:inherit; font-size:11px; cursor:pointer; }
