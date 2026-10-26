@@ -12,10 +12,11 @@
     "steps": "Carga el PDF, introduce tu clave de OpenAI y escribe una pregunta. Pulsa Consultar documento.",
     "technology": "LangChain · FAISS · GPT-4o mini",
     "limits": "Necesita una clave de OpenAI. No realiza OCR y las respuestas deben contrastarse con el PDF.",
-    "image": "static/covers/chatpdf-tablet-v2.png",
+    "image": "static/covers/chatpdf-tablet-v2-960.webp",
     "url": "https://chatpdf-fgtvnhpsz5z4sanjbpjpcu.streamlit.app/",
     "repo": "https://github.com/Jhuza/chat_pdf",
-    "kind": "document"
+    "kind": "document",
+    "image_small": "static/covers/chatpdf-tablet-v2-640.webp"
   },
   {
     "slug": "vision_app",
@@ -30,10 +31,11 @@
     "steps": "Introduce tu clave de OpenAI, carga la imagen y pulsa Analizar imagen. Activa la pregunta específica si la necesitas.",
     "technology": "GPT-4o · OpenAI",
     "limits": "Necesita una clave de OpenAI. La interpretación puede contener errores; no equivale a una medición.",
-    "image": "static/covers/02-vision-cristal-v1.png",
+    "image": "static/covers/02-vision-cristal-v1-960.webp",
     "url": "https://visionapp-bacpk6abduty44a9am9lc2.streamlit.app/",
     "repo": "https://github.com/Jhuza/vision_app",
-    "kind": "vision"
+    "kind": "vision",
+    "image_small": "static/covers/02-vision-cristal-v1-640.webp"
   },
   {
     "slug": "WordCloud",
@@ -48,10 +50,11 @@
     "steps": "En el panel lateral ingresa el texto, ajusta las palabras excluidas y la apariencia, y pulsa Generar nube.",
     "technology": "WordCloud · Counter · Matplotlib",
     "limits": "El tamaño representa frecuencia, no relevancia semántica. Los filtros modifican los términos visibles.",
-    "image": "static/covers/03-nube-palabras-cristal-v1.png",
+    "image": "static/covers/03-nube-palabras-cristal-v1-960.webp",
     "url": "https://wordcloud-2n68s7atxg6xhpcxyzmamt.streamlit.app/",
     "repo": "https://github.com/Jhuza/WordCloud",
-    "kind": "document"
+    "kind": "document",
+    "image_small": "static/covers/03-nube-palabras-cristal-v1-640.webp"
   },
   {
     "slug": "analisis_de_texto",
@@ -66,10 +69,11 @@
     "steps": "Elige la fuente en el panel lateral, añade el texto y pulsa Analizar texto o Analizar archivo.",
     "technology": "TextBlob · Google Translate",
     "limits": "Traduce al inglés para estimar sentimiento. Ironía, contexto y errores de traducción pueden alterar el resultado.",
-    "image": "static/covers/04-analisis-texto-cristal-v1.png",
+    "image": "static/covers/04-analisis-texto-cristal-v1-960.webp",
     "url": "https://dpa3jd7qptphp3yff5vuxn.streamlit.app/",
     "repo": "https://github.com/Jhuza/analisis_de_texto",
-    "kind": "document"
+    "kind": "document",
+    "image_small": "static/covers/04-analisis-texto-cristal-v1-640.webp"
   },
   {
     "slug": "Sentiment_A",
@@ -84,10 +88,11 @@
     "steps": "Abre Analizar texto y escribe una frase. La app la traduce y calcula sus puntuaciones.",
     "technology": "TextBlob · Google Translate",
     "limits": "Es una estimación léxica, no una evaluación de la persona. Puede fallar ante ironía y matices.",
-    "image": "static/covers/05-sentimiento-cristal-v1.png",
+    "image": "static/covers/05-sentimiento-cristal-v1-960.webp",
     "url": "https://sentimenta-fwspjacy4ftfwwdzq3gybn.streamlit.app/",
     "repo": "https://github.com/Jhuza/Sentiment_A",
-    "kind": "document"
+    "kind": "document",
+    "image_small": "static/covers/05-sentimiento-cristal-v1-640.webp"
   },
   {
     "slug": "TF_IDF",
@@ -102,10 +107,11 @@
     "steps": "Escribe los documentos y la pregunta. Pulsa Calcular TF-IDF y buscar respuesta; revisa la matriz y los puntajes.",
     "technology": "scikit-learn · NLTK · Similitud coseno",
     "limits": "Recupera el documento más similar: no genera una respuesta nueva. El procesamiento está configurado para inglés.",
-    "image": "static/covers/06-tfidf-cristal-v1.png",
+    "image": "static/covers/06-tfidf-cristal-v1-960.webp",
     "url": "https://bvysd3fe5zgcavkxwm4zsu.streamlit.app/",
     "repo": "https://github.com/Jhuza/TF_IDF",
-    "kind": "document"
+    "kind": "document",
+    "image_small": "static/covers/06-tfidf-cristal-v1-640.webp"
   },
   {
     "slug": "OCR",
@@ -120,10 +126,11 @@
     "steps": "Selecciona el filtro en el panel lateral, habilita la cámara y toma una foto con el texto enfocado.",
     "technology": "Tesseract · OpenCV",
     "limits": "La iluminación, el enfoque y el contraste afectan el reconocimiento. Revisa manualmente el texto extraído.",
-    "image": "static/covers/07-ocr-cristal-v1.png",
+    "image": "static/covers/07-ocr-cristal-v1-960.webp",
     "url": "https://nmgprr9f8fcsda7voc2jrz.streamlit.app/",
     "repo": "https://github.com/Jhuza/OCR",
-    "kind": "vision"
+    "kind": "vision",
+    "image_small": "static/covers/07-ocr-cristal-v1-640.webp"
   },
   {
     "slug": "ocr-audio",
@@ -138,10 +145,11 @@
     "steps": "Carga una imagen o usa la cámara. En el panel lateral elige los idiomas y pulsa Convertir a audio.",
     "technology": "Tesseract · Google Translate · gTTS",
     "limits": "Los errores del OCR pasan a la traducción. La síntesis y la traducción necesitan conexión a sus servicios.",
-    "image": "static/covers/08-imagen-voz-cristal-v1.png",
+    "image": "static/covers/08-imagen-voz-cristal-v1-960.webp",
     "url": "https://ocr-audio-jhg.streamlit.app/",
     "repo": "https://github.com/Jhuza/ocr-audio",
-    "kind": "vision"
+    "kind": "vision",
+    "image_small": "static/covers/08-imagen-voz-cristal-v1-640.webp"
   },
   {
     "slug": "Traductor",
@@ -156,10 +164,11 @@
     "steps": "Pulsa Escuchar, permite el micrófono y habla. Selecciona los idiomas y pulsa Convertir a audio.",
     "technology": "Web Speech API · Google Translate · gTTS",
     "limits": "El reconocimiento inicial está configurado en español y depende del soporte del navegador. Requiere conexión.",
-    "image": "static/covers/09-traductor-cristal-v1.png",
+    "image": "static/covers/09-traductor-cristal-v1-960.webp",
     "url": "https://traductor-kiqo96tbju5xfryyqtfypu.streamlit.app/",
     "repo": "https://github.com/Jhuza/Traductor",
-    "kind": "document"
+    "kind": "document",
+    "image_small": "static/covers/09-traductor-cristal-v1-640.webp"
   },
   {
     "slug": "Yolov5",
@@ -174,10 +183,11 @@
     "steps": "Ajusta los umbrales en el panel lateral y toma una foto. Compara las cajas con la tabla de resultados.",
     "technology": "Ultralytics · YOLOv5su",
     "limits": "La confianza del modelo no garantiza acierto. Las clases disponibles dependen del modelo preentrenado.",
-    "image": "static/covers/10-objetos-cristal-v1.png",
+    "image": "static/covers/10-objetos-cristal-v1-960.webp",
     "url": "https://yolov5-jpqn7hy6ah3tav84phcifb.streamlit.app/",
     "repo": "https://github.com/Jhuza/Yolov5",
-    "kind": "vision"
+    "kind": "vision",
+    "image_small": "static/covers/10-objetos-cristal-v1-640.webp"
   },
   {
     "slug": "TM",
@@ -192,10 +202,11 @@
     "steps": "Toma una foto y observa las probabilidades de rostro y gesto. El mensaje cambia cuando la probabilidad de gesto supera 0,5.",
     "technology": "Teachable Machine · Keras · TensorFlow",
     "limits": "Es una demostración de clasificación de dos clases, no un sistema de autenticación seguro.",
-    "image": "static/covers/11-habitat-cristal-v1.png",
+    "image": "static/covers/11-habitat-cristal-v1-960.webp",
     "url": "https://csxqwm99qyob4zptxventz.streamlit.app/",
     "repo": "https://github.com/Jhuza/TM",
-    "kind": "vision"
+    "kind": "vision",
+    "image_small": "static/covers/11-habitat-cristal-v1-640.webp"
   },
   {
     "slug": "send_cmqtt",
@@ -210,10 +221,11 @@
     "steps": "Con el receptor preparado, usa ON/OFF o ajusta el valor y pulsa Enviar valor analógico.",
     "technology": "Paho MQTT · JSON",
     "limits": "Requiere un broker y un receptor disponibles. Publicar un mensaje no confirma que el dispositivo lo haya ejecutado.",
-    "image": "static/covers/12-control-mqtt-cristal-v1.png",
+    "image": "static/covers/12-control-mqtt-cristal-v1-960.webp",
     "url": "https://sendcmqtt-mdrghytcblpjzstjsqupkm.streamlit.app/",
     "repo": "https://github.com/Jhuza/send_cmqtt",
-    "kind": "vision"
+    "kind": "vision",
+    "image_small": "static/covers/12-control-mqtt-cristal-v1-640.webp"
   },
   {
     "slug": "Recep_mqtt",
@@ -228,10 +240,11 @@
     "steps": "Configura la conexión en el panel lateral y pulsa Obtener Datos del Sensor mientras el emisor publica en ese tópico.",
     "technology": "Paho MQTT · JSON",
     "limits": "Espera hasta cinco segundos por lectura. Depende de un emisor activo y de una conexión disponible.",
-    "image": "static/covers/13-monitor-sensores-cristal-v1.png",
+    "image": "static/covers/13-monitor-sensores-cristal-v1-960.webp",
     "url": "https://recepmqtt-yjrvz6zzhbblxzpf7uctim.streamlit.app/",
     "repo": "https://github.com/Jhuza/Recep_mqtt",
-    "kind": "vision"
+    "kind": "vision",
+    "image_small": "static/covers/13-monitor-sensores-cristal-v1-640.webp"
   },
   {
     "slug": "ctrl_voice",
@@ -246,10 +259,11 @@
     "steps": "Prepara el receptor, pulsa Escuchar y permite el micrófono. La transcripción se envía al broker configurado.",
     "technology": "Web Speech API · Paho MQTT",
     "limits": "Requiere navegador compatible, micrófono y broker. El receptor determina qué acción corresponde al texto.",
-    "image": "static/covers/14-control-voz-cristal-v1.png",
+    "image": "static/covers/14-control-voz-cristal-v1-960.webp",
     "url": "https://ctrlvoice-8xolwmsfbocxfhpr9znjmh.streamlit.app/",
     "repo": "https://github.com/Jhuza/ctrl_voice",
-    "kind": "vision"
+    "kind": "vision",
+    "image_small": "static/covers/14-control-voz-cristal-v1-640.webp"
   },
   {
     "slug": "IMM1",
@@ -266,8 +280,9 @@
     "limits": "Necesita conexión al servicio de síntesis. La selección de idioma cambia la pronunciación; no traduce el texto.",
     "url": "https://cyep53ohwhhthv9sebnkrf.streamlit.app/",
     "repo": "https://github.com/Jhuza/IMM1",
-    "image": "static/covers/15-texto-voz-cristal-v1.png",
-    "kind": "document"
+    "image": "static/covers/15-texto-voz-cristal-v1-960.webp",
+    "kind": "document",
+    "image_small": "static/covers/15-texto-voz-cristal-v1-640.webp"
   },
   {
     "slug": "Mnist_pred",
@@ -284,8 +299,9 @@
     "limits": "Reconoce dígitos aislados, no palabras. La confianza es la puntuación del modelo y puede ser alta aunque se equivoque.",
     "url": "https://mnistpred-hkkxpjbqcq3bsy8usncy5x.streamlit.app/",
     "repo": "https://github.com/Jhuza/Mnist_pred",
-    "image": "static/covers/16-digitos-cristal-v1.png",
-    "kind": "vision"
+    "image": "static/covers/16-digitos-cristal-v1-960.webp",
+    "kind": "vision",
+    "image_small": "static/covers/16-digitos-cristal-v1-640.webp"
   },
   {
     "slug": "drawrecog",
@@ -302,8 +318,9 @@
     "limits": "Necesita una clave de OpenAI. Un boceto ambiguo puede producir una interpretación incorrecta; contrástala con tu intención.",
     "url": "https://drawrecog-appxrd8ntagtefe8amd93ih.streamlit.app/",
     "repo": "https://github.com/Jhuza/drawrecog",
-    "image": "static/covers/17-bocetos-cristal-v1.png",
-    "kind": "vision"
+    "image": "static/covers/17-bocetos-cristal-v1-960.webp",
+    "kind": "vision",
+    "image_small": "static/covers/17-bocetos-cristal-v1-640.webp"
   },
   {
     "slug": "tablero",
@@ -320,7 +337,8 @@
     "limits": "Esta experiencia explora la entrada táctil y la creación gráfica; no utiliza un modelo de IA. Los dibujos se mantienen durante la sesión.",
     "url": "https://jhginterfacesmultimodalesportfolio.streamlit.app/Tablero",
     "repo": "https://github.com/Jhuza/Portafolio-apps/blob/main/pages/18_Tablero.py",
-    "image": "static/covers/18-tablero-cristal-v1.png",
-    "kind": "vision"
+    "image": "static/covers/18-tablero-cristal-v1-960.webp",
+    "kind": "vision",
+    "image_small": "static/covers/18-tablero-cristal-v1-640.webp"
   }
 ]

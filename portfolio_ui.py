@@ -1,5 +1,6 @@
 """Portfolio identity, navigation and accessible decorative icons."""
 import base64
+from functools import lru_cache
 from html import escape
 from pathlib import Path
 import streamlit as st
@@ -25,6 +26,7 @@ PATHS = {
 CATEGORY_ICONS = {'Documentos':'file','Imagen':'image','Visión':'image','Texto':'text','Audio':'audio','Dibujo':'draw','IoT':'signal'}
 
 
+@lru_cache(maxsize=64)
 def image_data(filename):
     path=ROOT/filename
     if filename.startswith('static/'):
@@ -33,15 +35,26 @@ def image_data(filename):
     return f'data:{mime};base64,'+base64.b64encode(path.read_bytes()).decode('ascii')
 
 
+@lru_cache(maxsize=32)
 def icon(name):
     svg=f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ABCFFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">{PATHS.get(name,PATHS["spark"])}</svg>'
     data=base64.b64encode(svg.encode()).decode('ascii')
     return f'<img class="jhg-icon" src="data:image/svg+xml;base64,{data}" alt="" aria-hidden="true" width="20" height="20">'
 
 
+@lru_cache(maxsize=16)
+def asset_text(filename):
+    return (ROOT/filename).read_text(encoding='utf-8')
+
+
+@st.cache_resource
+def hero_bytes():
+    return (ROOT/'assets/hero/jhg-unlock-scroll.mp4').read_bytes()
+
+
 def setup_portfolio(title='Interfaces multimodales', sidebar='collapsed', home=True):
     st.set_page_config(page_title=f'{title} · JHG',page_icon=str(ROOT/'assets/LogoJHGwhite.png'),layout='wide',initial_sidebar_state=sidebar)
-    css=(ROOT/'aurora.css').read_text(encoding='utf-8')+'\n'+(ROOT/'portfolio.css').read_text(encoding='utf-8')
+    css=asset_text('aurora.css')+'\n'+asset_text('portfolio.css')
     st.markdown(f'<style>{css}</style>',unsafe_allow_html=True)
     base='' if home else SITE
     st.markdown(f'<div class="jhg-header-slot" id="inicio"><header class="jhg-header"><a class="jhg-identity" href="{base}#inicio" target="_self" aria-label="JHG · Inicio"><img class="jhg-logo" src="{image_data("assets/LogoJHGwhite.png")}" alt="JHG"><span>JUAN JOSÉ HOYOS<small>INTERFACES MULTIMODALES</small></span></a><nav aria-label="Navegación del portafolio"><a href="{base}#experiencias" target="_self">{icon("grid")}Experiencias</a><a href="{base}#fichas" target="_self">{icon("file")}Fichas</a><a href="{COURSE}" target="_blank" rel="noopener noreferrer">{icon("book")}Aprendizaje {icon("arrow")}</a></nav></header></div>',unsafe_allow_html=True)
@@ -53,9 +66,9 @@ def heading(anchor, number, title, symbol, note=''):
 
 def video_hero():
     # Native media serving provides the correct MIME type and byte-range support.
-    with st.container(key='jhg_video_hero'):
-        st.video(str(ROOT/'assets/hero/jhg-unlock.mp4'), format='video/mp4',
-                 autoplay=False, muted=True, loop=False)
+    with st.container(key='jhg_hero_track'):
+        with st.container(key='jhg_video_hero'):
+            st.video(hero_bytes(), format='video/mp4', autoplay=False, muted=True, loop=False)
     st.markdown('<div class="jhg-hero-intro"><div><h1>Interfaces multimodales</h1>'
                 '<p>Texto, imágenes, voz y dispositivos. Un recorrido de aprendizaje a través de 18 experiencias.</p>'
                 '</div><a href="#experiencias" target="_self">Explora la colección ↓</a></div>', unsafe_allow_html=True)
@@ -66,5 +79,5 @@ def portfolio_footer(home=True):
     st.markdown(f'<footer class="jhg-footer"><div><a class="jhg-footer-brand" href="{base}#inicio" target="_self">JHG <span>/ LAB</span></a><p>Aprender, explorar y construir.<br>Juan José Hoyos · Interfaces Multimodales</p></div><nav aria-label="Índice del portafolio"><span class="jhg-footer-label">ÍNDICE</span><a href="{base}#experiencias" target="_self">Experiencias</a><a href="{base}#fichas" target="_self">Fichas de las apps</a><a href="{COURSE}" target="_blank" rel="noopener noreferrer">Proceso de aprendizaje {icon("arrow")}</a><a href="{CODE}" target="_blank" rel="noopener noreferrer">Código del portafolio {icon("code")}</a></nav><div class="jhg-footer-note"><span class="jhg-footer-label">ACERCA DE LA COLECCIÓN</span><p>Ejercicios de la clase de Carlos Mario Correa.<br>Diseño y adaptación: Juan José Hoyos.</p><a href="{base}#inicio" target="_self">Volver al inicio ↑</a></div></footer>',unsafe_allow_html=True)
     # Only trusted, repository-owned code is executed. No user input is interpolated.
     with st.container(key='portfolio_motion'):
-        scripts = '\n'.join((ROOT/name).read_text(encoding='utf-8') for name in ('portfolio_motion.js', 'hero_video.js'))
+        scripts = '\n'.join(asset_text(name) for name in ('portfolio_motion.js', 'hero_video.js'))
         st.html('<script>'+scripts+'</script>',unsafe_allow_javascript=True)
