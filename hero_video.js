@@ -1,51 +1,63 @@
-/* One unlock per page load. Window state survives Streamlit filter reruns. */
+/* Scroll-driven, progressively enhanced hero; no wheel/touch interception. */
 (() => {
   window.__jhgVideo?.destroy();
-  const state = window.__jhgVideoState ||= {started: false, completed: false, time: 0, manualPause: false};
+  const state = window.__jhgScrollHero ||= {completed: false};
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  const main = document.querySelector('[data-testid="stMain"]');
-  const scrollTop = () => main?.scrollTop || document.scrollingElement?.scrollTop || 0;
-  let previousScroll = scrollTop();
-  let video, root, button, finalImage, visibility, scanFrame = 0;
-  let removers = [];
-  let visible = false;
-  const listen = (el, event, handler) => {
-    el.addEventListener(event, handler);
-    removers.push(() => el.removeEventListener(event, handler));
+  let video, root, track, finalImage, rail, progress, hint, skip;
+  let frame = 0, scanFrame = 0, targetTime = 0, travel = 1, pinTop = 150;
+  let removers = [], resizeObserver, failed = false;
+  const listen = (el, event, fn) => {
+    el.addEventListener(event, fn);
+    removers.push(() => el.removeEventListener(event, fn));
   };
-  function label() {
-    if (!button) return;
-    button.hidden = state.completed;
-    button.textContent = video.paused ? (state.started ? 'Continuar animación' : 'Ver animación') : 'Pausar animación';
-    button.setAttribute('aria-label', button.textContent);
-  }
-  function complete() {
+  function finish() {
     state.completed = true;
-    state.time = video.duration || state.time;
     video.pause();
     finalImage.hidden = false;
     root.dataset.heroState = 'complete';
-    label();
+    hint.textContent = 'Tu colección está lista';
+    skip.textContent = 'Explorar apps ↓';
+    progress.style.setProperty('--progress', '1');
+    progress.setAttribute('aria-valuenow', '100');
   }
-  async function play() {
-    if (!video || state.completed) return;
-    finalImage.hidden = true;
-    try {
-      await video.play();
-      state.started = true;
-      root.dataset.heroState = 'playing';
-    } catch (_) {
-      // Browser policy or a loading interruption: keep the explicit play button.
-      root.dataset.heroState = 'ready';
-    }
-    label();
+  function seek() {
+    if (!video || video.seeking || video.readyState < 1 || state.completed) return;
+    if (Math.abs(video.currentTime - targetTime) > 1 / 48) video.currentTime = targetTime;
+  }
+  function update() {
+    frame = 0;
+    if (!video?.isConnected || !track?.isConnected || reduced.matches) return;
+    const fraction = Math.max(0, Math.min(1, (pinTop - track.getBoundingClientRect().top) / travel));
+    if (state.completed) return;
+    progress.style.setProperty('--progress', String(fraction));
+    progress.setAttribute('aria-valuenow', String(Math.round(fraction * 100)));
+    if (!Number.isFinite(video.duration)) return;
+    if (fraction >= 1) { finish(); return; }
+    targetTime = fraction * Math.max(0, video.duration - 1 / 24);
+    root.dataset.heroState = fraction > 0 ? 'scrubbing' : 'ready';
+    seek();
+  }
+  function schedule() {
+    if (!state.completed && !reduced.matches && !frame) frame = requestAnimationFrame(update);
+  }
+  function measure() {
+    if (!root?.isConnected) return;
+    const toolbar = document.querySelector('[data-testid="stHeader"]');
+    const toolbarBottom = toolbar?.getBoundingClientRect().bottom || 60;
+    pinTop = toolbarBottom + (innerWidth <= 640 ? 120 : 90);
+    const mediaHeight = Math.max(140, innerHeight - pinTop - 90);
+    travel = Math.max(700, innerHeight * 1.8);
+    track.style.setProperty('--hero-top', `${pinTop}px`);
+    track.style.setProperty('--hero-media-height', `${mediaHeight}px`);
+    track.dataset.scrollHero = reduced.matches || failed ? 'reduced' : 'active';
+    track.style.setProperty('--hero-track-height', `${track.firstElementChild.getBoundingClientRect().height + travel + 120}px`);
+    schedule();
   }
   function release() {
-    if (video && !state.completed) state.time = video.currentTime || state.time;
     removers.forEach(remove => remove());
     removers = [];
-    visibility?.disconnect();
-    button?.remove();
+    resizeObserver?.disconnect();
+    rail?.remove();
     finalImage?.remove();
   }
   function bind() {
@@ -56,86 +68,80 @@
     video = next;
     if (!video) return;
     root = video.closest('.st-key-jhg_video_hero');
+    track = root.closest('.st-key-jhg_hero_track');
+    if (!track) return;
+    video.pause();
     video.controls = false;
     video.muted = true;
     video.loop = false;
     video.playsInline = true;
-    video.preload = 'auto';
-    video.poster = 'app/static/hero/closed.jpg';
-    video.setAttribute('aria-label', 'Carpeta de cristal que revela las cinco modalidades del portafolio JHG');
+    video.preload = reduced.matches ? 'none' : 'auto';
+    video.poster = 'app/static/hero/closed.webp';
+    video.setAttribute('aria-label', 'Carpeta JHG: animación de apertura controlada al desplazarte por la página');
     video.setAttribute('tabindex', '-1');
     finalImage = document.createElement('img');
     finalImage.className = 'jhg-video-final';
-    finalImage.src = 'app/static/hero/open.jpg';
+    finalImage.src = 'app/static/hero/open.webp';
     finalImage.alt = 'JHG Portfolio Media: imagen a voz, hábitat inteligente, objetos IA, tablero propio y control por voz.';
     finalImage.hidden = !state.completed && !reduced.matches;
-    root.append(finalImage);
-    button = document.createElement('button');
-    button.className = 'jhg-video-control';
-    button.type = 'button';
-    root.append(button);
-    root.dataset.heroState = state.completed ? 'complete' : 'ready';
-    listen(button, 'click', () => {
-      if (video.paused) {
-        state.manualPause = false;
-        finalImage.hidden = true;
-        play();
-      } else {
-        state.manualPause = true;
-        video.pause();
-      }
+    video.parentElement.append(finalImage);
+    rail = document.createElement('div');
+    rail.className = 'jhg-hero-rail';
+    hint = document.createElement('span');
+    hint.textContent = 'Desliza hacia abajo para abrir la colección';
+    progress = document.createElement('div');
+    progress.className = 'jhg-hero-progress';
+    progress.setAttribute('role', 'progressbar');
+    progress.setAttribute('aria-label', 'Apertura de la colección');
+    progress.setAttribute('aria-valuemin', '0');
+    progress.setAttribute('aria-valuemax', '100');
+    progress.setAttribute('aria-valuenow', '0');
+    skip = document.createElement('button');
+    skip.className = 'jhg-video-control';
+    skip.type = 'button';
+    skip.textContent = 'Saltar animación ↓';
+    rail.append(hint, progress, skip);
+    root.append(rail);
+    listen(skip, 'click', () => {
+      finish();
+      document.querySelector('#experiencias')?.scrollIntoView({behavior: reduced.matches ? 'instant' : 'smooth', block: 'start'});
     });
-    listen(video, 'timeupdate', () => { if (!state.completed) state.time = video.currentTime; });
-    listen(video, 'ended', complete);
-    listen(video, 'pause', label);
-    listen(video, 'play', label);
+    listen(video, 'loadedmetadata', schedule);
+    listen(video, 'loadeddata', schedule);
+    listen(video, 'seeked', seek);
     listen(video, 'error', () => {
-      finalImage.hidden = false;
-      button.hidden = true;
-      root.dataset.heroState = 'unavailable';
+      failed = true;
+      finish();
+      measure();
     });
-    const restore = () => {
-      if (state.completed) { complete(); return; }
-      if (state.time > 0 && Number.isFinite(video.duration)) video.currentTime = Math.min(state.time, video.duration);
-    };
-    if (video.readyState >= 1) restore(); else listen(video, 'loadedmetadata', restore);
-    visibility = new IntersectionObserver(entries => {
-      visible = entries[0].isIntersecting && entries[0].intersectionRatio >= 0.15;
-      if (!visible) video.pause();
-      else if (state.started && !state.manualPause && !state.completed && !reduced.matches && !document.hidden) play();
-    }, {threshold: [0, 0.15]});
-    visibility.observe(video);
-    label();
-  }
-  function onScroll() {
-    const current = scrollTop();
-    const down = current > previousScroll + 1;
-    previousScroll = current;
-    if (down && visible && !reduced.matches && !state.started && !state.completed && !state.manualPause) play();
-  }
-  function onVisibility() {
-    if (document.hidden) video?.pause();
-    else if (visible && state.started && !state.completed && !state.manualPause && !reduced.matches) play();
+    if (state.completed || reduced.matches) finish();
+    measure();
+    let lastWidth = track.clientWidth;
+    resizeObserver = new ResizeObserver(() => {
+      if (track.clientWidth !== lastWidth) { lastWidth = track.clientWidth; measure(); }
+    });
+    resizeObserver.observe(track);
   }
   function onPreference() {
-    if (reduced.matches && video) {
-      video.pause();
-      finalImage.hidden = false;
-    } else if (finalImage && !state.completed) finalImage.hidden = true;
+    if (reduced.matches && video) finish();
+    measure();
   }
+  // Filter reruns may replace the video. Ignore unrelated text/card mutations.
   const mutations = new MutationObserver(() => {
-    if (!scanFrame) scanFrame = requestAnimationFrame(bind);
+    if (video?.isConnected || scanFrame) return;
+    scanFrame = requestAnimationFrame(bind);
   });
   mutations.observe(document.body, {childList: true, subtree: true});
-  document.addEventListener('scroll', onScroll, {capture: true, passive: true});
-  document.addEventListener('visibilitychange', onVisibility);
+  document.addEventListener('scroll', schedule, {capture: true, passive: true});
+  window.addEventListener('resize', measure, {passive: true});
   reduced.addEventListener('change', onPreference);
   window.__jhgVideo = {destroy() {
     release();
     mutations.disconnect();
+    cancelAnimationFrame(frame);
     cancelAnimationFrame(scanFrame);
-    document.removeEventListener('scroll', onScroll, true);
-    document.removeEventListener('visibilitychange', onVisibility);
+    document.removeEventListener('scroll', schedule, true);
+    window.removeEventListener('resize', measure);
     reduced.removeEventListener('change', onPreference);
   }};
   bind();
